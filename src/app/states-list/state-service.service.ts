@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+
+import { switchMap, catchError, map, take } from 'rxjs/operators';
 import { State } from './state.model';
+import { LogService } from '../error-handling/log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,21 +13,35 @@ export class StateServiceService {
   url = 'https://indian-cities-api-nocbegfhqg.now.sh/cities';
 
   apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
-  apiAuthCode = 'Your AUTH TOKEN';
+  apiAuthCode = 'YOUR AUTHCODE';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private logService: LogService
   ) { }
 
   getStatesLists(): Observable<State[]> {
     return this.http.get<any>(this.url);
   }
 
-  getDistrictList(district: string): Observable<State[]> {
-    return this.http.get<any>(this.url + '?State=' + district);
+  getDistrictList(district: any) {
+    return this.http.get<any>(this.url + '?State=' + district).pipe(
+      // tslint:disable-next-line:no-shadowed-variable
+      switchMap(district => {
+        return of(district);
+      }),
+      catchError(e => {
+        this.logService.log(`Error occured.: ${e.error.message}`, e);
+        return throwError(`API failed to load the data`);
+      })
+    );
   }
 
   getData(state: string) {
-    return this.http.get<any>(this.apiUrl + '?address=' + state + '&key=' + this.apiAuthCode);
+    return this.http.get<any>(this.apiUrl + '?address=' + state + '&key=' + this.apiAuthCode)
+    .pipe(
+      map(res => res.json),
+      take(1)
+   );
   }
 }

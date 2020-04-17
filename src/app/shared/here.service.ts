@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 declare var H: any;
 @Injectable({
   providedIn: 'root'
@@ -9,8 +8,8 @@ export class HereService {
   public geocoder: any;
   constructor() {
     this.platform = new H.service.Platform({
-      app_id: 'YOUR KEY',
-      app_code  : 'YOUR CODE'
+      app_id: 'YOUR ID',
+      app_code  : 'YOUR APPCODE'
   });
     this.geocoder = this.platform.getGeocodingService();
    }

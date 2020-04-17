@@ -3,7 +3,7 @@ import { StateServiceService } from './state-service.service';
 import { State } from './state.model';
 // import _ from 'lodash';
 import * as _ from 'lodash';
-import { HereService } from '../here.service';
+import { HereService } from '../shared/here.service';
 
 @Component({
   selector: 'app-states-list',
@@ -55,8 +55,8 @@ export class StatesListComponent implements OnInit {
     .subscribe(data =>
       this.district$ = data.map(x => x.City));
     this.stateSelected = state;
-    // this.appService.getData(state).subscribe(data => this.codes = data);
-    this.getAddress(state);
+    this.appService.getData(state).subscribe(data => this.codes = data);
+    // this.getAddress(state);
   }
 
   public getAddress(state) {
