@@ -1,0 +1,12 @@
+agm-map {
+  height: 400px;
+}
+
+.dropdown-menu.show {
+  overflow-y: scroll !important;
+  height: 535px !important;
+}
+
+.createdClass {
+  padding: 16px 0px 24px 68px;
+}
