@@ -10,7 +10,7 @@ export class StateServiceService {
   url = 'https://indian-cities-api-nocbegfhqg.now.sh/cities';
 
   apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
-  apiAuthCode = 'AIzaSyBpTZs8DDFDXk_6AFYn7E6ypumkev48OiE';
+  apiAuthCode = 'Your AUTH TOKEN';
 
   constructor(
     private http: HttpClient

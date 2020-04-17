@@ -9,8 +9,8 @@ export class HereService {
   public geocoder: any;
   constructor() {
     this.platform = new H.service.Platform({
-      app_id: 'rPR8jXBgboz6xZYrrg53',
-      app_code  : '91VENYrUK88Ynx9qXTSiRLgjRIfT4y5mJ4x89FiMP7I'
+      app_id: 'YOUR KEY',
+      app_code  : 'YOUR CODE'
   });
     this.geocoder = this.platform.getGeocodingService();
    }
