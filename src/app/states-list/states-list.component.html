@@ -1,36 +1,43 @@
 <div class="container-fluid">
 <div class="row center">
-
   <div class="col createdClass">
-
     <div ngbDropdown class="d-inline-block">
-
-      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{stateSelected}}</button>
-
-      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-
-        <button class="dropdown-item" *ngFor='let state of states$'
-        (click)="stateLists(state)" [value]="state.State">{{callStates(state)}}</button>
-
+      <button
+       class="btn btn-outline-primary"
+       id="dropdownBasic1"
+       ngbDropdownToggle>
+         {{stateSelected}}
+      </button>
+      <div ngbDropdownMenu
+        aria-labelledby="dropdownBasic1">
+        <button class="dropdown-item"
+         *ngFor='let state of states$'
+        (click)="stateLists(state)"
+         [value]="state.State">
+         {{callStates(state)}}
+        </button>
       </div>
-
     </div>
-
   </div>
-
 </div>
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <h3 *ngIf="visibleMap">Cities of {{stateSelected}}</h3>
+      <h3 *ngIf="visibleMap">
+        Cities of {{stateSelected}}
+      </h3>
       <ul *ngFor='let dist of district$'>
         <li>
             {{dist}}
         </li>
       </ul>
     </div>
-    <div class="col-sm-6"><agm-map *ngIf="visibleMap" [latitude]="lat" [longitude]="lng">
-    </agm-map>
+    <div class="col-sm-6">
+      <agm-map
+       *ngIf="visibleMap"
+        [latitude]="lat"
+         [longitude]="lng">
+      </agm-map>
     </div>
     <div class="w-100"></div>
   </div>

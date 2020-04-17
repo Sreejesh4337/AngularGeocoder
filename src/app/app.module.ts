@@ -21,7 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'YOUR G KEY'
+      apiKey: 'Your Code',
+      libraries: ['places']
     }),
     BrowserAnimationsModule
   ],

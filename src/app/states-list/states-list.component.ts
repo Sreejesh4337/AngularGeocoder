@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StateServiceService } from './state-service.service';
 import { State } from './state.model';
-// import _ from 'lodash';
 import * as _ from 'lodash';
 import { HereService } from '../shared/here.service';
 
@@ -14,8 +13,6 @@ export class StatesListComponent implements OnInit {
   states$: any;
   ar: any;
   district$: any;
-  lat = 20.5937;
-  lng = 78.9629;
   visibleMap = false;
   public query: string;
   public position: string;
@@ -31,10 +28,8 @@ export class StatesListComponent implements OnInit {
   ngOnInit() {
     this.visibleMap = false;
     this.getStates();
-    this.ar = [];
     this.district$ = [];
     this.states$ = [];
-    this.codes = [];
     this.stateSelected = 'Select State';
   }
 
@@ -55,29 +50,11 @@ export class StatesListComponent implements OnInit {
     .subscribe(data =>
       this.district$ = data.map(x => x.City));
     this.stateSelected = state;
-    this.appService.getData(state).subscribe(data => this.codes = data);
-    // this.getAddress(state);
+    this.appService.getData(state)
+    .subscribe((response: any) => {
+      let lat: any;
+      let lng: any;
+      lat = response.candidates[0].location.x;
+      lng = response.candidates[0].location.y; });
   }
-
-  public getAddress(state) {
-    console.log(state);
-    if (state !== '') {
-      this.here.getAddress(state).then(result => {
-        // tslint:disable-next-line:no-angle-bracket-type-assertion
-        this.locations = <Array<any>> result;
-      }, error => {
-          console.error(error);
-      });
-  }
-   }
-
-  public getAddressFromLatLng() {
-    if (this.position !== '') {
-      this.here.getAddressFromLatLng(this.position).then(result => {
-          this.locations = result as Array<any>;
-      }, error => {
-          console.error(error);
-      });
-  }
-   }
 }

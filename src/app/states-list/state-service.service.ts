@@ -13,7 +13,9 @@ export class StateServiceService {
   url = 'https://indian-cities-api-nocbegfhqg.now.sh/cities';
 
   apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
-  apiAuthCode = 'YOUR AUTHCODE';
+  apiAuthCode = 'YOUR CODE';
+  // tslint:disable-next-line:max-line-length
+  argisCode = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine';
 
   constructor(
     private http: HttpClient,
@@ -38,10 +40,10 @@ export class StateServiceService {
   }
 
   getData(state: string) {
-    return this.http.get<any>(this.apiUrl + '?address=' + state + '&key=' + this.apiAuthCode)
-    .pipe(
-      map(res => res.json),
-      take(1)
-   );
+    return this.http.get<any>(this.argisCode + '=' + state + '&outFields=Match_addr,Addr_type');
+  //   .pipe(
+  //     map(res => res.json),
+  //     take(1)
+  //  );
   }
 }
