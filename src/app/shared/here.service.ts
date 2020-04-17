@@ -8,8 +8,8 @@ export class HereService {
   public geocoder: any;
   constructor() {
     this.platform = new H.service.Platform({
-      app_id: 'YOUR ID',
-      app_code  : 'YOUR CODE'
+      app_id: 'your app id',
+      app_code  : 'your app code'
   });
     this.geocoder = this.platform.getGeocodingService();
    }

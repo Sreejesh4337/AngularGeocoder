@@ -11,9 +11,6 @@ import { LogService } from '../error-handling/log.service';
 })
 export class StateServiceService {
   url = 'https://indian-cities-api-nocbegfhqg.now.sh/cities';
-
-  apiUrl = 'https://maps.googleapis.com/maps/api/geocode/json';
-  apiAuthCode = 'YOUR CODE';
   // tslint:disable-next-line:max-line-length
   argisCode = 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates?f=json&singleLine';
 

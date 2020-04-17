@@ -24,7 +24,7 @@
   <div class="row">
     <div class="col-sm-6">
       <h3 *ngIf="visibleMap">
-        Cities of {{stateSelected}}
+        Cities of {{stateSelected}} with latlng: {{lat}}, {{lng}}
       </h3>
       <ul *ngFor='let dist of district$'>
         <li>

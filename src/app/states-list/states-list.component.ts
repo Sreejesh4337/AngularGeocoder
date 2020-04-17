@@ -19,10 +19,10 @@ export class StatesListComponent implements OnInit {
   public locations: Array<any>;
   stateSelected: any;
   codes: any;
+  latt: number;
+  long: number;
   constructor(private appService: StateServiceService,
               private here: HereService) {
-                this.query = 'Tracy, CA';
-                this.position = '37.7397,-121.4252';
                }
 
   ngOnInit() {
@@ -30,21 +30,24 @@ export class StatesListComponent implements OnInit {
     this.getStates();
     this.district$ = [];
     this.states$ = [];
+    this.codes = [];
     this.stateSelected = 'Select State';
   }
 
+  // Getting unique states from api
   getStates() {
     this.appService.getStatesLists()
     .subscribe(data =>
        this.states$ = _.uniq(data.map(x => x.State)).sort());
   }
 
+  // Printing the Cities of Selected States
   callStates(state) {
     return state;
   }
 
-
-  stateLists(state) {
+  // Getting state selected and passing to geocode for getting latlng
+  stateLists(state: string) {
     this.visibleMap = true;
     this.appService.getDistrictList(state)
     .subscribe(data =>
@@ -52,9 +55,9 @@ export class StatesListComponent implements OnInit {
     this.stateSelected = state;
     this.appService.getData(state)
     .subscribe((response: any) => {
-      let lat: any;
-      let lng: any;
-      lat = response.candidates[0].location.x;
-      lng = response.candidates[0].location.y; });
+      this.locations = response;
+      const lat: number = response.candidates[0].location.x;
+      const lng: number = response.candidates[0].location.y;
+     });
   }
 }
