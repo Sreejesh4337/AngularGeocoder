@@ -11,26 +11,21 @@ import { HereService } from '../shared/here.service';
 })
 export class StatesListComponent implements OnInit {
   states$: any;
-  ar: any;
   district$: any;
   visibleMap = false;
-  public query: string;
-  public position: string;
-  public locations: Array<any>;
+  arrayListLatLng: any;
   stateSelected: any;
-  codes: any;
-  latt: number;
-  long: number;
+  public lat: number;
+  public lng: number;
   constructor(private appService: StateServiceService,
-              private here: HereService) {
-               }
+              private here: HereService) {}
 
   ngOnInit() {
     this.visibleMap = false;
     this.getStates();
     this.district$ = [];
     this.states$ = [];
-    this.codes = [];
+    this.arrayListLatLng = [];
     this.stateSelected = 'Select State';
   }
 
@@ -55,9 +50,8 @@ export class StatesListComponent implements OnInit {
     this.stateSelected = state;
     this.appService.getData(state)
     .subscribe((response: any) => {
-      this.locations = response;
-      const lat: number = response.candidates[0].location.x;
-      const lng: number = response.candidates[0].location.y;
+      this.lng = response.candidates[0].location.x;
+      this.lat = response.candidates[0].location.y;
      });
   }
 }

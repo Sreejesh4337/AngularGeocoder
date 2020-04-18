@@ -22,10 +22,10 @@
 </div>
 <div class="container">
   <div class="row">
+    <h3 *ngIf="visibleMap">
+      Cities of {{stateSelected}} with latlng: {{lat}}, {{lng}}
+    </h3>
     <div class="col-sm-6">
-      <h3 *ngIf="visibleMap">
-        Cities of {{stateSelected}} with latlng: {{lat}}, {{lng}}
-      </h3>
       <ul *ngFor='let dist of district$'>
         <li>
             {{dist}}
@@ -36,7 +36,7 @@
       <agm-map
        *ngIf="visibleMap"
         [latitude]="lat"
-         [longitude]="lng">
+        [longitude]="lng">
       </agm-map>
     </div>
     <div class="w-100"></div>

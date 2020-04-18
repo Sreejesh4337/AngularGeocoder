@@ -23,8 +23,9 @@ export class StateServiceService {
     return this.http.get<any>(this.url);
   }
 
-  getDistrictList(district: any) {
-    return this.http.get<any>(this.url + '?State=' + district).pipe(
+  getDistrictList(state: any) {
+    return this.http.get<any>(this.url + '?State=' + state)
+    .pipe(
       // tslint:disable-next-line:no-shadowed-variable
       switchMap(district => {
         return of(district);
@@ -38,9 +39,5 @@ export class StateServiceService {
 
   getData(state: string) {
     return this.http.get<any>(this.argisCode + '=' + state + '&outFields=Match_addr,Addr_type');
-  //   .pipe(
-  //     map(res => res.json),
-  //     take(1)
-  //  );
   }
 }
