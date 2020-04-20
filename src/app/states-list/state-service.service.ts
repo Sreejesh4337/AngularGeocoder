@@ -38,9 +38,6 @@ export class StateServiceService {
   }
 
   getData(state: string) {
-    return this.http.get<any>(this.argisCode + '=' + state + '&outFields=Match_addr,Addr_type')
-    .pipe(
-      timeout(2000)
-    );
+    return this.http.get<any>(this.argisCode + '=' + state + '&outFields=Match_addr,Addr_type');
   }
 }

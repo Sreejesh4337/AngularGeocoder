@@ -52,9 +52,7 @@ export class StatesListComponent implements OnInit {
     this.visibleMap = true;
     this.appService.getDistrictList(state)
     .subscribe(data => {
-      this.district$ = data.map(x => x.City);
-
-      _.forEach(this.district$, dist => {
+      _.forEach(data.map(x => x.City), dist => {
         this.appService.getData(dist)
         .subscribe((response: any) => {
           this.cityLng = response.candidates[0].location.x;
@@ -65,6 +63,7 @@ export class StatesListComponent implements OnInit {
           });
          });
       });
+      this.district$ = data.map(x => x.City);
     });
     this.stateSelected = state;
     this.getLatLngOfStates(state);
