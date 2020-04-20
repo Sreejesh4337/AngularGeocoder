@@ -64,10 +64,12 @@ export class StatesListComponent implements OnInit {
           });
          });
       });
-
-
     });
     this.stateSelected = state;
+    this.getLatLngOfStates(state);
+  }
+
+  getLatLngOfStates(state) {
     this.appService.getData(state)
     .subscribe((response: any) => {
       this.lng = response.candidates[0].location.x;

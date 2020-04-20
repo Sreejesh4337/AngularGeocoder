@@ -40,7 +40,7 @@ export class StateServiceService {
   getData(state: string) {
     return this.http.get<any>(this.argisCode + '=' + state + '&outFields=Match_addr,Addr_type')
     .pipe(
-      timeout(5000)
+      timeout(2000)
     );
   }
 }
