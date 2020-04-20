@@ -17,6 +17,11 @@ export class StatesListComponent implements OnInit {
   stateSelected: any;
   public lat: number;
   public lng: number;
+  public cityLat: number;
+  public cityLng: number;
+  // google maps zoom level
+  zoom: number = 8;
+  pusheditems = [];
   constructor(private appService: StateServiceService,
               private here: HereService) {}
 
@@ -45,8 +50,23 @@ export class StatesListComponent implements OnInit {
   stateLists(state: string) {
     this.visibleMap = true;
     this.appService.getDistrictList(state)
-    .subscribe(data =>
-      this.district$ = data.map(x => x.City));
+    .subscribe(data => {
+      this.district$ = data.map(x => x.City);
+
+      _.forEach(this.district$, dist => {
+        this.appService.getData(dist)
+        .subscribe((response: any) => {
+          this.cityLng = response.candidates[0].location.x;
+          this.cityLat = response.candidates[0].location.y;
+          this.pusheditems.push({
+            lat: this.cityLat,
+            lng: this.cityLng
+          });
+         });
+      });
+
+
+    });
     this.stateSelected = state;
     this.appService.getData(state)
     .subscribe((response: any) => {
