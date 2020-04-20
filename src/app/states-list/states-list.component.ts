@@ -20,13 +20,14 @@ export class StatesListComponent implements OnInit {
   public cityLat: number;
   public cityLng: number;
   // google maps zoom level
-  zoom: number = 8;
+  zoom: number;
   pusheditems = [];
   constructor(private appService: StateServiceService,
               private here: HereService) {}
 
   ngOnInit() {
     this.visibleMap = false;
+    this.zoom = 8;
     this.getStates();
     this.district$ = [];
     this.states$ = [];
