@@ -41,7 +41,7 @@
         [disableDefaultUI]="false"
         [zoomControl]="false">
         <agm-marker *ngFor="let data of pusheditems; let i = index"
-         [latitude]="data.lat" [longitude]="data.lng"></agm-marker>
+         [latitude]="data?.lat" [longitude]="data?.lng"></agm-marker>
       </agm-map>
     </div>
     <div class="w-100"></div>

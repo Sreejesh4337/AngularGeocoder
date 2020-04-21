@@ -15,13 +15,15 @@ export class StatesListComponent implements OnInit {
   visibleMap = false;
   arrayListLatLng: any;
   stateSelected: any;
+  iterationState: any;
   public lat: number;
   public lng: number;
   public cityLat: number;
   public cityLng: number;
   // google maps zoom level
   zoom: number;
-  pusheditems = [];
+  public pusheditems: any;
+  newItems = [];
   constructor(private appService: StateServiceService,
               private here: HereService) {}
 
@@ -32,6 +34,7 @@ export class StatesListComponent implements OnInit {
     this.district$ = [];
     this.states$ = [];
     this.arrayListLatLng = [];
+    this.pusheditems = [];
     this.stateSelected = 'Select State';
   }
 
@@ -50,17 +53,14 @@ export class StatesListComponent implements OnInit {
   // Getting state selected and passing to geocode for getting latlng
   stateLists(state: string) {
     this.visibleMap = true;
+    this.pusheditems = [];
     this.appService.getDistrictList(state)
     .subscribe(data => {
       _.forEach(data.map(x => x.City), dist => {
         this.appService.getData(dist)
         .subscribe((response: any) => {
-          this.cityLng = response.candidates[0].location.x;
-          this.cityLat = response.candidates[0].location.y;
-          this.pusheditems.push({
-            lat: this.cityLat,
-            lng: this.cityLng
-          });
+          this.newItems = response;
+          this.safetCheck(this.newItems, state);
          });
       });
       this.district$ = data.map(x => x.City);
@@ -75,5 +75,20 @@ export class StatesListComponent implements OnInit {
       this.lng = response.candidates[0].location.x;
       this.lat = response.candidates[0].location.y;
      });
+  }
+
+  safetCheck(response: any, state: any) {
+    const __this = this;
+    const addr = (response.candidates[0].address).split(',');
+    _.forEach(addr, (o) => {
+      const address = o.replace(/\s/g, '');
+      const presentCity = {
+        lat: response.candidates[0].location.y,
+        lng: response.candidates[0].location.x
+      };
+      if (address === state) {
+      __this.pusheditems.push(presentCity);
+      }
+    });
   }
 }
